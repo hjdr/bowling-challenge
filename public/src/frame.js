@@ -1,7 +1,8 @@
 
 class Frame {
-  constructor() {
+  constructor(gamehandler) {
     this.score = [[0, 0]]
+    this.gamehandler = gamehandler
   };
 
   roll(rollScore) {
@@ -15,15 +16,27 @@ class Frame {
       } else {
         this.score.slice(-1)[0].push(rollScore)
       };
+      this.frameScore() 
     }
     console.log("THIS SCORE:")
     console.log(this.score)
   };
 
   frameScore() {
-    if(this.score.slice(-1)[0].length > 1) {
-      return this.score.slice(-1)[0];
-    };
+    if(this.score.length < 11) {
+      if(this.score.slice(-1)[0].length === 2) {
+        this.gamehandler.scoreHandler(this._currentFrame())
+      }
+    } else {
+      console.log("lfs else called")
+      if(this.score.slice(-1)[0].length === 2 &&       this.score.reduce((a, b) => a + b) < 10) {
+        console.log("1st if")
+        this.gamehandler.scoreHandler(this._currentFrame())
+      } else if(this.score.slice(-1)[0].length === 3) {
+        console.log("2nd if")
+        this.gamehandler.scoreHandler(this._currentFrame())
+      }
+    }
   };
 
   _isFrameTen() {
@@ -40,5 +53,10 @@ class Frame {
     } else {
       this.score.slice(-1)[0].push(rollScore)
     };
+    this.frameScore()
+  }
+
+  _currentFrame() {
+    return this.score.slice(-1)[0];
   }
 };

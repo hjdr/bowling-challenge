@@ -2,10 +2,13 @@
 describe('Frame', function () {
   let frame;
 
-  beforeEach(function () {
-    frame = new Frame();
+  var gamehandler = jasmine.createSpyObj('gameHandler', [ 'scoreHandler']);
 
+  beforeEach(function () {
+    frame = new Frame(gamehandler);
   });
+
+
 
   describe('.roll', function () {
 
@@ -28,11 +31,8 @@ describe('Frame', function () {
     
     it('outputs the current frames final score' , function() {
       frame.roll(3);
-      frame.frameScore();
       frame.roll(6);
-      frame.frameScore();
       frame.roll(6);
-      frame.frameScore();
       expect(frame.score).toEqual([[0, 0], [3, 6], [6]]);
     });
 

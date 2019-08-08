@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 
   let gamehandler = new gameHandler();
-  let frame = new Frame();
+  let frame = new Frame(gamehandler);
 
   $('#current-score').text(gamehandler.runningScore)
   $('#current-frame').text(gamehandler.frames.length)
@@ -97,20 +97,6 @@ $( document ).ready(function() {
   };
 
   function logFrameScore() {
-    if(frame.score.length < 11) {
-      if(frame.score.slice(-1)[0].length === 2) {
-        gamehandler.scoreHandler(frame.frameScore())
-      }
-    } else {
-      console.log("lfs else called")
-      if(frame.score.slice(-1)[0].length === 2 &&       frame.score.reduce((a, b) => a + b) < 10) {
-        console.log("1st if")
-        gamehandler.scoreHandler(frame.frameScore())
-      } else if(frame.score.slice(-1)[0].length === 3) {
-        console.log("2nd if")
-        gamehandler.scoreHandler(frame.frameScore())
-      }
-    }
     updateRunningScore()
   };
 });
